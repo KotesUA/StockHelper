@@ -1,16 +1,41 @@
-# This is a sample Python script.
+import json
+import time
+import requests
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from config import KEYWORDS, ACCOUNTS
+from keys import consumer_key, consumer_secret, access_token_key, access_token_secret, bearer_token
+
+search_url = "https://api.twitter.com/2/users"
+search_term = 'NBA'
+query_params = {'query': search_term, 'space.fields': 'title,created_at', 'expansions': 'creator_id'}
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def tweet_checker(status):
+    if any(word in status.text.lower() for word in KEYWORDS) and status.user.id_str in ACCOUNTS:
+        print(f"Elon tweeted: {status.text} - on {time.ctime()}")
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def create_headers(bearer_token):
+    headers = {
+        "Authorization": "Bearer {}".format(bearer_token),
+        "User-Agent": "v2SpacesSearchPython"
+    }
+    return headers
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+def connect_to_endpoint(url, headers, params):
+    response = requests.request("GET", search_url, headers=headers, params=params)
+    print(response.status_code)
+    if response.status_code != 200:
+        raise Exception(response.status_code, response.text)
+    return response.json()
+
+
+def main():
+    headers = create_headers(bearer_token)
+    json_response = connect_to_endpoint(search_url, headers, query_params)
+    print(json.dumps(json_response, indent=4, sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()

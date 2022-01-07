@@ -1,12 +1,12 @@
 import requests
 import json
-from keys import bearer_token
+from keys import TWITTER_BEARER_TOKEN
 
 URL = "https://api.twitter.com/2/tweets/search/stream/rules"
 
 
 def bearer_oauth(r):
-    r.HEADERS["Authorization"] = f"Bearer {bearer_token}"
+    r.HEADERS["Authorization"] = f"Bearer {TWITTER_BEARER_TOKEN}"
     r.HEADERS["User-Agent"] = "StockHelperKotes"
     return r
 

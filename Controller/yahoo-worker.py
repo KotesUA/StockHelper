@@ -1,8 +1,8 @@
 import requests
-from keys import yahoo_key
+from keys import YAHOO_KEY
 
 URL = "https://yfapi.net/v6/finance/quote"
-HEADERS = {'x-api-key': f"{yahoo_key}"}
+HEADERS = {'x-api-key': f"{YAHOO_KEY}"}
 
 
 def get_news(ticker):

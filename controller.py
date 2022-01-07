@@ -3,7 +3,7 @@ import time
 import requests
 
 from config import KEYWORDS, ACCOUNTS
-from keys import consumer_key, consumer_secret, access_token_key, access_token_secret, bearer_token
+from keys import TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, TWITTER_ACCES_KEY, TWITTER_ACCESS_SECRET, TWITTER_BEARER_TOKEN
 
 search_url = "https://api.twitter.com/2/users"
 search_term = 'NBA'
@@ -32,7 +32,7 @@ def connect_to_endpoint(url, headers, params):
 
 
 def main():
-    headers = create_headers(bearer_token)
+    headers = create_headers(TWITTER_BEARER_TOKEN)
     json_response = connect_to_endpoint(search_url, headers, query_params)
     print(json.dumps(json_response, indent=4, sort_keys=True))
 

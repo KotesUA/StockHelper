@@ -1,3 +1,5 @@
+import json
+
 import requests
 from keys import YAHOO_KEY
 
@@ -11,8 +13,8 @@ def get_news(ticker):
     if response.status_code != 200:
         print("Cannot get data (HTTP {}): {}".format(response.status_code, response.text))
     else:
-        print(response.text)
+        return response.json()
 
 
 if __name__ == "__main__":
-    get_news("AAPL")
+    print(json.dumps(get_news("AAPL"), indent=4, sort_keys=True))

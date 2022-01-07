@@ -6,8 +6,8 @@ URL = "https://api.twitter.com/2/tweets/search/stream/rules"
 
 
 def bearer_oauth(r):
-    r.headers["Authorization"] = f"Bearer {bearer_token}"
-    r.headers["User-Agent"] = "StockHelperKotes"
+    r.HEADERS["Authorization"] = f"Bearer {bearer_token}"
+    r.HEADERS["User-Agent"] = "StockHelperKotes"
     return r
 
 
@@ -75,3 +75,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
